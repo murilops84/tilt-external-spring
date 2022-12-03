@@ -1,0 +1,43 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: my-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-backend
+  template:
+    metadata:
+      labels:
+        app: my-backend
+    spec:
+      nodeSelector:
+        app: dev
+      containers:
+        - name: my-backend
+          image: my-backend
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 400Mi
+            limits:
+              cpu: 500m
+              memory: 800Mi
+          livenessProbe:
+            initialDelaySeconds: 120
+            periodSeconds: 300
+            httpGet:
+              path: /my-backend/v1/actuator/health/liveness
+              port: 8080
+          readinessProbe:
+            initialDelaySeconds: 120
+            periodSeconds: 300
+            httpGet:
+              path: /my-backend/v1/actuator/health/readiness
+              port: 8080
+          envFrom:
+            - configMapRef:
+                name: my-backend-configmap

@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "name": "Tilt Start",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "type": "node-terminal",
+            "command": "tilt up",
+        }
+    ]
+}

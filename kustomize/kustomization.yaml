@@ -1,0 +1,14 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+namespace: dev
+commonLabels:
+  app: my-backend
+resources:
+  - deployment.yaml
+  - service.yaml
+  - configmap.yaml
+  - ingress.yaml
+images:
+- name: my-backend
+  newName: my-backend
+  newTag: 1.0.2-1
